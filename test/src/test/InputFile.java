@@ -17,75 +17,75 @@ public class InputFile {
 	
 	 public static void main(String [] args) throws Exception {
 		 	
-	        BufferedReader br = new BufferedReader(new FileReader("D:/a.txt"));
+	        BufferedReader br = new BufferedReader(new FileReader("src/a.txt"));
 	        StringBuffer sb = new StringBuffer();
 	        String text="";
 	        System.out.println(br.readLine()!=null);
 	        while ((text=br.readLine())!=null){
-	        	//±éÀú×·¼Ó
+	        	//éå†è¿½åŠ 
 	            sb.append(text);
 	        }
-	        //¹Ø±ÕÁ÷
+	        //å…³é—­æµ
 	        br.close();
-	        // ½«stringBuffer×ªÎª×Ö·û²¢×ª»»ÎªĞ¡Ğ´
+	        // å°†stringBufferè½¬ä¸ºå­—ç¬¦å¹¶è½¬æ¢ä¸ºå°å†™
 	        String str = sb.toString().toLowerCase(); 
-	        // ÕıÔò±í´ïÊ½    ·Çµ¥´ÊµÄ×Ö·ûÀ´·Ö¸î£¬µÃµ½ËùÓĞµ¥´Ê
+	        // æ­£åˆ™è¡¨è¾¾å¼    éå•è¯çš„å­—ç¬¦æ¥åˆ†å‰²ï¼Œå¾—åˆ°æ‰€æœ‰å•è¯
 	        String[] words = str.split("[^(a-zA-Z)]+"); 
 	        Map<String ,Integer> map = new HashMap<String, Integer>() ;
 
 	        for(String word :words){
-	        	// Èô²»´æÔÚËµÃ÷ÊÇµÚÒ»´Î£¬Ôò¼ÓÈëµ½map,³öÏÖ´ÎÊıÎª1
+	        	// è‹¥ä¸å­˜åœ¨è¯´æ˜æ˜¯ç¬¬ä¸€æ¬¡ï¼Œåˆ™åŠ å…¥åˆ°map,å‡ºç°æ¬¡æ•°ä¸º1
 	            if(map.get(word)==null){  
 	                map.put(word,1);
 	            }else{
-	            	 // Èô´æÔÚ£¬´ÎÊıÀÛ¼Ó1
+	            	 // è‹¥å­˜åœ¨ï¼Œæ¬¡æ•°ç´¯åŠ 1
 	                map.put(word,map.get(word)+1); 
 	            }
 	        }
 	       
 	        
-	        // ÅÅĞò
+	        // æ’åº
 	        List<Map.Entry<String ,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
 	        Comparator<Map.Entry<String,Integer>> comparator = new Comparator<Map.Entry<String, Integer>>() {
 	            public int compare(Map.Entry<String, Integer> left, Map.Entry<String, Integer> right) {
 	                return (left.getValue().compareTo(right.getValue()));
 	            }
 	        };
-	        //ÉıĞò
+	        //å‡åº
 	        Collections.sort(list,comparator);
 	        Map<String, Integer> m = new HashMap<String, Integer>();
-	        for(int i=0;i<list.size();i++){// ÓÉ¸ßµ½µÍÊä³ö
+	        for(int i=0;i<list.size();i++){// ç”±é«˜åˆ°ä½è¾“å‡º
 	            System.err.println(list.get(list.size()-i-1).getKey() +":"+list.get(list.size()-i-1).getValue());
 	            m.put(list.get(list.size()-i-1).getKey(),list.get(list.size()-i-1).getValue());
 	        }
-	        WriteStringToFile("D:/b.txt",list);//Ğ´ÈëÎÄ±¾
+	        WriteStringToFile("sre/b.txt",list);//å†™å…¥æ–‡æœ¬
 	        String word="";
 	        while(true) {
 	         word = inputWord();
 	         word = word.replaceAll(" ", "");
-	         //²éÑ¯ÊäÈëµ¥´Ê
+	         //æŸ¥è¯¢è¾“å…¥å•è¯
 	         if(map.get(word)!=null) {
-	        	 System.out.println("½øÀ´");
-	        	 System.err.println("²éÑ¯½á¹û£º\n"+"µ¥´Ê£º"+word+"³öÏÖµÄ´ÎÊı£º"+map.get(word)+"\n");
+	        	 System.out.println("è¿›æ¥");
+	        	 System.err.println("æŸ¥è¯¢ç»“æœï¼š\n"+"å•è¯ï¼š"+word+"å‡ºç°çš„æ¬¡æ•°ï¼š"+map.get(word)+"\n");
 	         }else {
-	        	 System.err.println("²éÑ¯½á¹û£º\n"+"µ¥´Ê£º"+word+"³öÏÖµÄ´ÎÊı£º"+word+":0\n");
+	        	 System.err.println("æŸ¥è¯¢ç»“æœï¼š\n"+"å•è¯ï¼š"+word+"å‡ºç°çš„æ¬¡æ•°ï¼š"+word+":0\n");
 	         }
 	        }
 
 	    }
 	 /**
-	  * µ¥´Ê²éÑ¯
+	  * å•è¯æŸ¥è¯¢
 	  * @return
 	  */
 	 public static String inputWord() {
-			 System.out.println("ÊäÈë²éÑ¯µ¥´Ê£º");
+			 System.out.println("è¾“å…¥æŸ¥è¯¢å•è¯ï¼š");
 			 Scanner input = new Scanner(System.in);
 			 String word = input.nextLine();
 			 return word;
 	 }
 	 
 	 /**
-	  * Ğ´ÈëtxtÎÄµµ
+	  * å†™å…¥txtæ–‡æ¡£
 	  * @param filePath
 	  */
 	 public static void WriteStringToFile(String filePath,List<Map.Entry<String ,Integer>> list) {
@@ -97,8 +97,8 @@ public class InputFile {
 		                return (right.getValue().compareTo(left.getValue()));
 		            }
 		        };
-	            //Ğ´ÈëÎÄ±¾
-		        //½µĞò
+	            //å†™å…¥æ–‡æœ¬
+		        //é™åº
 	            Collections.sort(list,comparator1);       
 	            ps.append(list.toString());
 	            ps.close();
