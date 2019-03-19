@@ -54,11 +54,14 @@ public class InputFile {
 	        //升序
 	        Collections.sort(list,comparator);
 	        Map<String, Integer> m = new HashMap<String, Integer>();
+		 int num=0;
 	        for(int i=0;i<list.size();i++){// 由高到低输出
+		    num=num+1;
 	            System.err.println(list.get(list.size()-i-1).getKey() +":"+list.get(list.size()-i-1).getValue());
 	            m.put(list.get(list.size()-i-1).getKey(),list.get(list.size()-i-1).getValue());
 	        }
-	        WriteStringToFile("sre/b.txt",list);//写入文本
+		 System.out.println("当前单词总数："+num+"个。");
+	        WriteStringToFile("sre/result.txt",list);//写入文本
 	        String word="";
 	        while(true) {
 	         word = inputWord();
